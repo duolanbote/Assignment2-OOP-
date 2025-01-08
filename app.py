@@ -22,3 +22,12 @@ class App:
             self._circuit_kits = value
         else:
             raise ValueError("Circuit kits must be a list")
+            
+    def read_file(self, filename):
+        pass
+
+    def write_file(self, filename):
+        pass
+
+    def manage_menu(self):
+        pass
