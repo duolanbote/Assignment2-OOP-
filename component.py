@@ -74,3 +74,18 @@ class Wire(Component):
     def display(self) -> str:
         return f"Wire: {self.name}, Price: ${self.price:.2f}, Length: {self.length}"
     
+class PowerSupply(Component, ABC):
+    def __init__(self, name: str, price: float, voltage: float):
+        super().__init__(name, price)
+        self._voltage = voltage
+
+    @property
+    def voltage(self) -> float:
+        return self._voltage
+
+    @voltage.setter
+    def voltage(self, value: float):
+        if isinstance(value, (int, float)) and value > 0:
+            self._voltage = float(value)
+        else:
+            raise ValueError("Voltage must be a positive number")
