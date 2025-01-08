@@ -22,7 +22,7 @@ class App:
             self._circuit_kits = value
         else:
             raise ValueError("Circuit kits must be a list")
-            
+
     def read_file(self, filename):
         pass
 
@@ -31,3 +31,7 @@ class App:
 
     def manage_menu(self):
         pass
+    
+    if __name__ == "__main__":
+    app = App()
+    app.run()
