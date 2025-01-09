@@ -110,3 +110,23 @@ class SolarPanel(PowerSupply):
     def parse_csv(cls, csv_string: str) -> 'SolarPanel':
         name, price, voltage, wattage = csv_string.split(',')
         return cls(name, float(price), float(voltage), float(wattage))
+
+    def duplicate(self) -> 'SolarPanel':
+        return SolarPanel(self.name, self.price, self.voltage, self.wattage)
+
+    def to_csv(self) -> str:
+        return f"{self.name},{self.price},{self.voltage},{self.wattage}"
+
+    def display(self) -> str:
+        return f"Solar Panel: {self.name}, Price: ${self.price:.2f}, Voltage: {self.voltage}V, Wattage: {self.wattage}"
+
+class Battery(PowerSupply):
+    def __init__(self, name: str, price: float, voltage: float, capacity: float):
+        super().__init__(name, price, voltage)
+        self._capacity = capacity
+
+    @property
+    def capacity(self) -> float:
+        return self._capacity
+    
+    
