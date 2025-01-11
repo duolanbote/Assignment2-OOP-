@@ -277,4 +277,34 @@ class LEDLight(Light):
             self._color = value
         else:
             raise ValueError("Color must be a string")
+        
+    @classmethod
+    def parse_csv(cls, csv_string: str) -> 'LEDLight':
+        name, price, lumens, color = csv_string.split(',')
+        return cls(name, float(price), float(lumens), color)
+
+    def duplicate(self) -> 'LEDLight':
+        return LEDLight(self.name, self.price, self.lumens, self.color)
+    
+    def to_csv(self) -> str:
+        return f"{self.name},{self.price},{self.lumens},{self.color}"
+
+    def display(self) -> str:
+        return f"LED Light: {self.name}, Price: ${self.price:.2f}, Lumens: {self.lumens}, Color: {self.color}"
+    
+class Buzzer(OutputComponent):
+    def __init__(self, name: str, price: float, volume: float):
+        super().__init__(name, price)
+        self._volume = volume
+
+    @property
+    def volume(self) -> float:
+        return self._volume
+
+    @volume.setter
+    def volume(self, value: float):
+        if isinstance(value, (int, float)) and value > 0:
+            self._volume = float(value)
+        else:
+            raise ValueError("Volume must be a positive number")
     
