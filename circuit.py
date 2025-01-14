@@ -9,3 +9,5 @@ class Circuit:
             attributes = line.split(',')
             component = Component(*attributes)
             self.components.append(component)
+
+    def
