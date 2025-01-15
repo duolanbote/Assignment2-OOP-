@@ -2,9 +2,9 @@ from .component import Component
 
 class SolarPanel(Component):
     def __init__(self, name: str, price: float, voltage: float, wattage: float):
-        super().__init__(name, price)
-        self.voltage = voltage
-        self.wattage = wattage
+        super().__init__(name, float(price))
+        self.voltage = float(voltage)
+        self.wattage = float(wattage)
 
     @property
     def wattage(self) -> float:
@@ -13,7 +13,7 @@ class SolarPanel(Component):
     @wattage.setter
     def wattage(self, value):
         try:
-            value = float(value)  # 尝试将输入转换为浮点数
+            value = float(value) 
             if value > 0:
                 self._wattage = value
             else:
@@ -34,4 +34,4 @@ class SolarPanel(Component):
         return [self.name,self.price,self.voltage,self.wattage]
 
     def display(self) -> str:
-        return f"Solar Panel: {self.name}, Price: ${self.price:.2f}, Voltage: {self.voltage}, Wattage: {self.wattage}"
+        return f"Solar Panel: {self.name}, Price: ${self.price}, Voltage: {self.voltage}, Wattage: {self.wattage}"

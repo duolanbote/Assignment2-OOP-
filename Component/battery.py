@@ -3,9 +3,9 @@ from .component import Component
 class Battery(Component):
     def __init__(self, name: str, price: float, voltage: float, capacity: float):
         
-        super().__init__(name, price)
-        self.voltage = voltage
-        self.capacity = capacity
+        super().__init__(name, float(price))
+        self.voltage = float(voltage)
+        self.capacity = float(capacity)
 
 
     @property
@@ -36,4 +36,4 @@ class Battery(Component):
         return [self.name, self.price, self.voltage, self.capacity]
 
     def display(self) -> str:
-        return f"Battery: {self.name}, Price: ${self.price:.2f}, Voltage: {self.voltage}, Capacity: {self.capacity}"
+        return f"Battery: {self.name}, Price: ${self.price}, Voltage: {self.voltage}, Capacity: {self.capacity}"

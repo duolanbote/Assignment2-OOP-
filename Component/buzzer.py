@@ -2,7 +2,7 @@ from .component import Component
 
 class Buzzer(Component):
     def __init__(self, name: str, price: float, volume: float):
-        super().__init__(name, price)
+        super().__init__(name, float(price))
         self.volume = volume
 
     @property
@@ -28,4 +28,4 @@ class Buzzer(Component):
         return [self.name, self.price, self.volume]
 
     def display(self) -> str:
-        return f"Buzzer: {self.name}, Price: ${self.price:.2f}, Volume: {self.volume}"
+        return f"Buzzer: {self.name}, Price: ${self.price}, Volume: {self.volume}"

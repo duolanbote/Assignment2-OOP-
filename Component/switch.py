@@ -2,7 +2,7 @@ from .component import Component
 
 class Switch(Component):
     def __init__(self, name: str, price: float, switch_type: str):
-        super().__init__(name, price)
+        super().__init__(name, float(price))
         self.type = switch_type
 
     @property
@@ -25,4 +25,4 @@ class Switch(Component):
         return [self.name, self.price, self.type]
 
     def display(self) -> str:
-        return f"Switch: {self.name}, Price: ${self.price:.2f}, Type: {self.type}"
+        return f"Switch: {self.name}, Price: ${self.price}, Type: {self.type}"

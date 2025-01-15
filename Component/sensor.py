@@ -2,7 +2,7 @@ from .component import Component
 
 class Sensor(Component):
     def __init__(self, name: str, price: float, measurement: str):
-        super().__init__(name, price)
+        super().__init__(name, float(price))
         self.measurement = measurement
 
     @property
@@ -25,7 +25,7 @@ class Sensor(Component):
         return [self.name, self.price, self.measurement]
 
     def display(self) -> str:
-        return f"Sensor: {self.name}, Price: ${self.price:.2f}, Measurement: {self.measurement}"
+        return f"Sensor: {self.name}, Price: ${self.price}, Measurement: {self.measurement}"
 
 
 

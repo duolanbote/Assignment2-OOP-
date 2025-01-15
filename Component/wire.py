@@ -2,7 +2,7 @@ from .component import Component
 
 class Wire(Component):
     def __init__(self, name: str, price: float, length: float):
-        super().__init__(name, price)
+        super().__init__(name, float(price))
         self.length = length
 
     @property
@@ -28,4 +28,4 @@ class Wire(Component):
         return [self.name, self.price, self.length]
 
     def display(self) -> str:
-        return f"Wire: {self.name}, Price: ${self.price:.2f}, Length: {self.length}"
+        return f"Wire: {self.name}, Price: ${self.price}, Length: {self.length}"
