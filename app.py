@@ -7,15 +7,12 @@ from Component.sensor import Sensor
 from Component.buzzer import Buzzer
 
 
-
-
 class App:
     def __init__(self):
-        self.components = []  
-        self.filename = "components.csv"  
+        self.components = []
+        self.filename = "components.csv"
 
     def load_data(self):
-        
         try:
             with open(self.filename, "r") as file:
                 reader = csv.reader(file)
@@ -24,7 +21,7 @@ class App:
                         self.components.append(Battery(*row[1:]))
                     elif row[0] == "Wire":
                         self.components.append(Wire(*row[1:]))
-                    elif row[0] == "Solar Panel":
+                    elif row[0] == "SolarPanel":
                         self.components.append(SolarPanel(*row[1:]))
                     elif row[0] == "Switch":
                         self.components.append(Switch(*row[1:]))
@@ -33,28 +30,23 @@ class App:
                     elif row[0] == "Buzzer":
                         self.components.append(Buzzer(*row[1:]))
         except FileNotFoundError:
-            print("File not found")
+            print(f"File '{self.filename}' not found. Starting fresh.")
 
     def save_data(self):
-        
         with open(self.filename, "w", newline="") as file:
             writer = csv.writer(file)
             for component in self.components:
-                writer.writerow([component.name] + component.to_csv())
+                writer.writerow([component.__class__.__name__] + component.to_csv())
 
 
     def display_components(self):
-        i = 1
         if not self.components:
             print("No components available.")
         else:
-              
-            for component in self.components:
+            for i, component in enumerate(self.components, start=1):
                 print(f"{i}. {component.display()}")
-                i += 1  
 
     def add_component(self):
-        
         print("1. Battery")
         print("2. Wire")
         print("3. Solar Panel")
@@ -99,9 +91,7 @@ class App:
             print("Invalid choice.")
 
     def run(self):
-        
         self.load_data()
-
         while True:
             print("\n1. Display Components")
             print("2. Add Component")
@@ -117,11 +107,13 @@ class App:
                 print("Data saved. Exiting.")
                 break
             else:
-                print("Invalid choice.")
+                print("Invalid choice. Please try again.")
 
 
 if __name__ == "__main__":
     app = App()
     app.run()
+
+
 
 
