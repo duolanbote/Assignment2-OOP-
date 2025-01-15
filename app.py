@@ -1,3 +1,4 @@
+import csv
 from Component.battery import Battery
 from Component.wire import Wire
 from Component.solarpanel import SolarPanel

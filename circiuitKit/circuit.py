@@ -1,30 +1,19 @@
 class CircuitKit:
-
-    def __init__(self, name):
+    def __init__(self, name: str):
         self._name = name
-        self._components = []  
+        self._components = []
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
     @name.setter
-    def name(self, value):
-        if value:  
-            self._name = value
-        else:
-            raise ValueError("Name must be a non-empty string.")
+    def name(self, value: str):
+        self._name = value
 
     @property
-    def components(self):
+    def components(self) -> list:
         return self._components
-
-    @components.setter
-    def components(self, value):
-        if isinstance(value, list):  
-            self._components = value
-        else:
-            raise ValueError("Components must be a list.")
 
     def add_component(self, component):
         self._components.append(component)
@@ -33,15 +22,20 @@ class CircuitKit:
         if component in self._components:
             self._components.remove(component)
 
-    def display(self):
-        print("Circuit Name:", self._name)
+    def check_power_supply(self) -> bool:
+        for component in self._components:
+            if component.__class__.__name__ in ["Battery", "SolarPanel"]:
+                return True
+        return False
+
+    def display(self) -> None:
+        print(f"Circuit Name: {self._name}")
         if not self._components:
             print("No components in the circuit.")
         else:
             print("Components:")
             for component in self._components:
-                print(component)
+                print(component.display())
 
-    def validate_circuit(self):
-        return len(self._components) > 0
+
 
