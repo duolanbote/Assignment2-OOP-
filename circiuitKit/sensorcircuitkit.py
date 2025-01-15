@@ -1,4 +1,4 @@
-from circuit import CircuitKit
+from .circuit import CircuitKit
 
 class SensorCircuitKit(CircuitKit):
     

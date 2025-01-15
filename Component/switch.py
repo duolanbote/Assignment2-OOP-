@@ -1,4 +1,4 @@
-from component import Component
+from .component import Component
 
 class Switch(Component):
     def __init__(self, name: str, price: float, type: str):

@@ -1,4 +1,4 @@
-from light import Light
+from .light import Light
 
 
 class LEDLight(Light):

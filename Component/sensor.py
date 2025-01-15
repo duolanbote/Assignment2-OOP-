@@ -1,4 +1,4 @@
-from component import Component
+from .component import Component
 
 class Sensor(Component):
     def __init__(self, name: str, price: float, measurement: str):

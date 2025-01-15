@@ -1,4 +1,4 @@
-from light import Light
+from .light import Light
 
 class LightGlobe(Light):
     def __init__(self, name: str, price: float, lumens: float, wattage: float):

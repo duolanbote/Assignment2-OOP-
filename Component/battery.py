@@ -1,4 +1,4 @@
-from component import Component
+from .component import Component
 
 class Battery(Component):
     def __init__(self, name: str, price: float, voltage: float, capacity: float):
