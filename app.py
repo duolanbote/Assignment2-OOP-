@@ -10,13 +10,11 @@ from Component.buzzer import Buzzer
 
 class App:
     def __init__(self):
-        self.components = []  # 用于存储所有组件
-        self.filename = "data/components.csv"  # 数据文件路径
+        self.components = []  
+        self.filename = "data/components.csv"  
 
     def load_data(self):
-        """
-        从文件加载组件数据。
-        """
+        
         try:
             with open(self.filename, "r") as file:
                 reader = csv.reader(file)
@@ -38,9 +36,7 @@ class App:
             print(f"File {self.filename} not found. Starting with an empty list.")
 
     def save_data(self):
-        """
-        保存组件数据到文件。
-        """
+        
         try:
             with open(self.filename, "w", newline="") as file:
                 writer = csv.writer(file)
@@ -50,9 +46,7 @@ class App:
             print(f"Error saving data: {e}")
 
     def display_components(self):
-        """
-        显示所有组件。
-        """
+        
         if not self.components:
             print("No components available.")
         else:
@@ -60,9 +54,7 @@ class App:
                 print(f"{i}. {component.display()}")
 
     def add_component(self):
-        """
-        添加新组件。
-        """
+        
         print("\nAdd a Component")
         print("1. Battery")
         print("2. Wire")
@@ -108,9 +100,7 @@ class App:
             print("Invalid choice. Returning to the menu.")
 
     def manage_menu(self):
-        """
-        主菜单逻辑。
-        """
+        
         while True:
             print("\nMain Menu")
             print("1. Display Components")
@@ -130,9 +120,7 @@ class App:
                 print("Invalid choice. Please try again.")
 
     def run(self):
-        """
-        启动程序。
-        """
+       
         self.load_data()
         self.manage_menu()
 
