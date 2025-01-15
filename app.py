@@ -1,10 +1,11 @@
-import csv
 from Component.battery import Battery
 from Component.wire import Wire
 from Component.solarpanel import SolarPanel
 from Component.switch import Switch
 from Component.sensor import Sensor
 from Component.buzzer import Buzzer
+
+
 
 
 class App:
@@ -99,7 +100,7 @@ class App:
     def run(self):
         
         self.load_data()
-        
+
         while True:
             print("\n1. Display Components")
             print("2. Add Component")
