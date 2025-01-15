@@ -11,21 +11,12 @@ class LightGlobe(Light):
 
     @wattage.setter
     def wattage(self, value: float):
-        if value > 0:
-            self._wattage = value
-        else:
+        if value <= 0:
             raise ValueError("Wattage must be a positive number")
-
-    @classmethod
-    def parse_csv(cls, csv_string: str) -> 'LightGlobe':
-        name, price, lumens, wattage = csv_string.split(',')
-        return cls(name, float(price), float(lumens), float(wattage))
-
-    def duplicate(self) -> 'LightGlobe':
-        return LightGlobe(self.name, self.price, self.lumens, self.wattage)
+        self._wattage = float(value)
 
     def to_csv(self) -> list:
         return [self.name, self.price, self.lumens, self.wattage]
 
     def display(self) -> str:
-        return f"Light Globe: {self.name}, Price: ${self.price:.2f}, Lumens: {self.lumens}, Wattage: {self.wattage}"
+        return f"Light Globe: {self.name}, Price: ${self.price}, Lumens: {self.lumens}, Wattage: {self.wattage}W"

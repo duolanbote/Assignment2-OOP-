@@ -11,18 +11,12 @@ class LEDLight(Light):
 
     @color.setter
     def color(self, value: str):
+        if not value:
+            raise ValueError("Color must not be empty")
         self._color = value
-
-    @classmethod
-    def parse_csv(cls, csv_string: str) -> 'LEDLight':
-        name, price, lumens, color = csv_string.split(',')
-        return cls(name, float(price), float(lumens), color)
-
-    def duplicate(self) -> 'LEDLight':
-        return LEDLight(self.name, self.price, self.lumens, self.color)
 
     def to_csv(self) -> list:
         return [self.name, self.price, self.lumens, self.color]
 
     def display(self) -> str:
-        return f"LED Light: {self.name}, Price: ${self.price:.2f}, Lumens: {self.lumens}, Color: {self.color}"
+        return f"LED Light: {self.name}, Price: ${self.price}, Lumens: {self.lumens}, Color: {self.color}"
