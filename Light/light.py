@@ -1,15 +1,23 @@
-class Light():
-    def __init__(self, name: str, price: float, lumens: float):
+from Component.component import Component
+
+
+class Light(Component):
+    def __init__(self, name: str, price: float):
         super().__init__(name, price)
-        self._lumens = lumens
 
-    @property
-    def lumens(self) -> float:
-        return self._lumens
+    def duplicate(self):
+        return Light(self.name, self.price)
 
-    @lumens.setter
-    def lumens(self, value: float):
-        if isinstance(value, (int, float)) and value > 0:
-            self._lumens = float(value)
-        else:
-            raise ValueError("Lumens must be a positive number")
+    def to_csv(self) -> list:
+        return [self.name, self.price]
+
+    def display(self) -> str:
+        return f"Light: {self.name}, Price: ${self.price}"
+
+    def calculate_energy_efficiency(self, power_consumption: float) -> float:
+       
+        return self.price / power_consumption
+
+    def is_expensive(self, threshold: float) -> bool:
+        
+        return self.price > threshold

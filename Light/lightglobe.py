@@ -1,22 +1,53 @@
 from .light import Light
 
 class LightGlobe(Light):
-    def __init__(self, name: str, price: float, lumens: float, wattage: float):
-        super().__init__(name, price, lumens)
-        self.wattage = wattage
+    def __init__(self, name: str, price: float, voltage: float, current: float, color: str):
+        super().__init__(name, price)
+        self.voltage = voltage
+        self.current = current
+        self.color = color
 
     @property
-    def wattage(self) -> float:
-        return self._wattage
+    def voltage(self) -> float:
+        return self._voltage
 
-    @wattage.setter
-    def wattage(self, value: float):
+    @voltage.setter
+    def voltage(self, value: float):
         if value <= 0:
-            raise ValueError("Wattage must be a positive number")
-        self._wattage = float(value)
+            raise ValueError("Voltage must be positive.")
+        self._voltage = value
+
+    @property
+    def current(self) -> float:
+        return self._current
+
+    @current.setter
+    def current(self, value: float):
+        if value <= 0:
+            raise ValueError("Current must be positive.")
+        self._current = value
+
+    @property
+    def color(self) -> str:
+        return self._color
+
+    @color.setter
+    def color(self, value: str):
+        if not value:
+            raise ValueError("Color must not be empty.")
+        self._color = value
+
+    def duplicate(self):
+        return LEDGlobe(self.name, self.price, self.voltage, self.current, self.color)
 
     def to_csv(self) -> list:
-        return [self.name, self.price, self.lumens, self.wattage]
+        return [self.name, self.price, self.voltage, self.current, self.color]
 
     def display(self) -> str:
-        return f"Light Globe: {self.name}, Price: ${self.price}, Lumens: {self.lumens}, Wattage: {self.wattage}W"
+        return (f"LED Globe: {self.name}, Price: ${self.price}, Voltage: {self.voltage}V, "
+                f"Current: {self.current}mA, Color: {self.color}")
+
+    @classmethod
+    def parse_csv(cls, csv_string: str):
+        name, price, voltage, current, color = csv_string.split(',')
+        return cls(name, float(price), float(voltage), float(current), color)

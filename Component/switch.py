@@ -12,8 +12,14 @@ class Switch(Component):
     @switch_type.setter
     def switch_type(self, value: str):
         if not value:
-            raise ValueError("Switch type must not be empty")
+            raise ValueError("Switch type cannot be empty.")
         self._switch_type = value
+
+    def toggle_state(self, current_state: bool) -> bool:
+        return not current_state
+
+    def duplicate(self):
+        return Switch(self.name, self.price, self.switch_type)
 
     def to_csv(self) -> list:
         return [self.name, self.price, self.switch_type]
@@ -21,4 +27,7 @@ class Switch(Component):
     def display(self) -> str:
         return f"Switch: {self.name}, Price: ${self.price}, Type: {self.switch_type}"
 
-
+    @classmethod
+    def parse_csv(cls, csv_string: str):
+        name, price, switch_type = csv_string.split(',')
+        return cls(name, float(price), switch_type)
