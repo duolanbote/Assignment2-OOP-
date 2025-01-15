@@ -1,66 +1,69 @@
-menu1 = {
-    "WIRE"
-    "BATTERY"
-    "SOLAR PANEL"
-    "LIGHT GLOBE"
-    "LED LIGHT"
-    "SWITCH"
-    "BUZZER"
-    "BACK"
-}
-
-class Memu():
-    def __init__(self, title, option):
+class Menu:
+    def __init__(self, title, options):
         self._title = title
-        self._option = option
-        pass
-
+        self._options = options
+        self._choice = None
 
     @property
     def title(self):
         return self._title
-    @title.setter
-    def title(self, set_title):
-        self._title = set_title
-        pass
 
+    @title.setter
+    def title(self, value):
+        self._title = value
 
     @property
-    def option(self):
-        return self._option
-    @option.setter
-    def option(self, option_selection):
-        self._option = option_selection
-        pass
+    def options(self):
+        return self._options
+
+    @options.setter
+    def options(self, value):
+        self._options = value
 
     @property
     def choice(self):
         return self._choice
+
     @choice.setter
-    def choice(self, choiceselection):
-        self._choice = int(choiceselection)
-        pass
+    def choice(self, value):
+        self._choice = value
 
-    def input(self):
-        user_input = input("Please enter a number: ")
-        self.choice = user_input
-        return self.choice
+    def display(self):
         
-    def menu():
-        print('Home menu')
-        print('1. COMPONENTS')
-        print('2. CIRCUIT KITS')
-        print('3. CLOSE')
-        choice = input('Please enter a number')
+        print(f"\n{self._title}")
+        print("-" * len(self._title))
+        count = 1
+        for option in self._options:
+            print(f"{count}. {option}")
+            count += 1
+        print("0. Exit")
 
-        if choice == '1':
-            menu1()
-        elif choice == '2':
-            menu2()
-    
+    def get_choice(self):
+        try:
+            user_input = int(input("Please enter a number: "))
+            if 0 <= user_input <= len(self._options):
+                self.choice = user_input
+                return self.choice
+            else:
+                print("Invalid choice. Please try again.")
+                return -1
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            return -1
 
+    def run_once(self):
+        self.display()
+        choice = self.get_choice()
 
-
-
-    
-#12
+        if choice == 0:
+            print("Exiting menu...")
+            return False
+        elif choice == 1:
+            print("Manage Components")
+        elif choice == 2:
+            print("Manage Circuits")
+        elif choice == 3:
+            print("Close")
+        else:
+            print("Invalid choice. Please try again.")
+        return True
