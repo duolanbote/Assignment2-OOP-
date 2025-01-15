@@ -1,5 +1,4 @@
 import csv
-from menu import Menu
 from Component.battery import Battery
 from Component.wire import Wire
 from Component.solarpanel import SolarPanel
@@ -11,7 +10,7 @@ from Component.buzzer import Buzzer
 class App:
     def __init__(self):
         self.components = []  
-        self.filename = "data/components.csv"  
+        self.filename = "components.csv"  
 
     def load_data(self):
         
@@ -19,43 +18,41 @@ class App:
             with open(self.filename, "r") as file:
                 reader = csv.reader(file)
                 for row in reader:
-                    component_type = row[0]
-                    if component_type == "Battery":
-                        self.components.append(Battery.parse_csv(",".join(row[1:])))
-                    elif component_type == "Wire":
-                        self.components.append(Wire.parse_csv(",".join(row[1:])))
-                    elif component_type == "Solar Panel":
-                        self.components.append(SolarPanel.parse_csv(",".join(row[1:])))
-                    elif component_type == "Switch":
-                        self.components.append(Switch.parse_csv(",".join(row[1:])))
-                    elif component_type == "Sensor":
-                        self.components.append(Sensor.parse_csv(",".join(row[1:])))
-                    elif component_type == "Buzzer":
-                        self.components.append(Buzzer.parse_csv(",".join(row[1:])))
+                    if row[0] == "Battery":
+                        self.components.append(Battery(*row[1:]))
+                    elif row[0] == "Wire":
+                        self.components.append(Wire(*row[1:]))
+                    elif row[0] == "Solar Panel":
+                        self.components.append(SolarPanel(*row[1:]))
+                    elif row[0] == "Switch":
+                        self.components.append(Switch(*row[1:]))
+                    elif row[0] == "Sensor":
+                        self.components.append(Sensor(*row[1:]))
+                    elif row[0] == "Buzzer":
+                        self.components.append(Buzzer(*row[1:]))
         except FileNotFoundError:
-            print(f"File {self.filename} not found. Starting with an empty list.")
+            print("File not found")
 
     def save_data(self):
         
-        try:
-            with open(self.filename, "w", newline="") as file:
-                writer = csv.writer(file)
-                for component in self.components:
-                    writer.writerow([type(component).__name__] + component.to_csv().split(","))
-        except Exception as e:
-            print(f"Error saving data: {e}")
+        with open(self.filename, "w", newline="") as file:
+            writer = csv.writer(file)
+            for component in self.components:
+                writer.writerow([component.name] + component.to_csv())
+
 
     def display_components(self):
-        
+        i = 1
         if not self.components:
             print("No components available.")
         else:
-            for i, component in enumerate(self.components, start=1):
+              
+            for component in self.components:
                 print(f"{i}. {component.display()}")
+                i += 1  
 
     def add_component(self):
         
-        print("\nAdd a Component")
         print("1. Battery")
         print("2. Wire")
         print("3. Solar Panel")
@@ -65,45 +62,46 @@ class App:
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            name = input("Enter battery name: ")
-            price = float(input("Enter battery price: "))
-            voltage = float(input("Enter battery voltage: "))
-            capacity = float(input("Enter battery capacity: "))
+            name = input("Enter name: ")
+            price = input("Enter price: ")
+            voltage = input("Enter voltage: ")
+            capacity = input("Enter capacity: ")
             self.components.append(Battery(name, price, voltage, capacity))
         elif choice == "2":
-            name = input("Enter wire name: ")
-            price = float(input("Enter wire price: "))
-            length = float(input("Enter wire length: "))
+            name = input("Enter name: ")
+            price = input("Enter price: ")
+            length = input("Enter length: ")
             self.components.append(Wire(name, price, length))
         elif choice == "3":
-            name = input("Enter solar panel name: ")
-            price = float(input("Enter solar panel price: "))
-            voltage = float(input("Enter solar panel voltage: "))
-            wattage = float(input("Enter solar panel wattage: "))
+            name = input("Enter name: ")
+            price = input("Enter price: ")
+            voltage = input("Enter voltage: ")
+            wattage = input("Enter wattage: ")
             self.components.append(SolarPanel(name, price, voltage, wattage))
         elif choice == "4":
-            name = input("Enter switch name: ")
-            price = float(input("Enter switch price: "))
-            switch_type = input("Enter switch type: ")
+            name = input("Enter name: ")
+            price = input("Enter price: ")
+            switch_type = input("Enter type: ")
             self.components.append(Switch(name, price, switch_type))
         elif choice == "5":
-            name = input("Enter sensor name: ")
-            price = float(input("Enter sensor price: "))
-            measurement = input("Enter sensor measurement: ")
+            name = input("Enter name: ")
+            price = input("Enter price: ")
+            measurement = input("Enter measurement: ")
             self.components.append(Sensor(name, price, measurement))
         elif choice == "6":
-            name = input("Enter buzzer name: ")
-            price = float(input("Enter buzzer price: "))
-            volume = float(input("Enter buzzer volume: "))
+            name = input("Enter name: ")
+            price = input("Enter price: ")
+            volume = input("Enter volume: ")
             self.components.append(Buzzer(name, price, volume))
         else:
-            print("Invalid choice. Returning to the menu.")
+            print("Invalid choice.")
 
-    def manage_menu(self):
+    def run(self):
+        
+        self.load_data()
         
         while True:
-            print("\nMain Menu")
-            print("1. Display Components")
+            print("\n1. Display Components")
             print("2. Add Component")
             print("3. Save and Exit")
             choice = input("Enter your choice: ")
@@ -114,18 +112,14 @@ class App:
                 self.add_component()
             elif choice == "3":
                 self.save_data()
-                print("Exiting program. Data saved.")
+                print("Data saved. Exiting.")
                 break
             else:
-                print("Invalid choice. Please try again.")
-
-    def run(self):
-       
-        self.load_data()
-        self.manage_menu()
+                print("Invalid choice.")
 
 
 if __name__ == "__main__":
     app = App()
     app.run()
+
 

@@ -1,6 +1,6 @@
 from component import Component
 
-class SolarPanel(PowerSupply):
+class SolarPanel(Component):
     def __init__(self, name: str, price: float, voltage: float, wattage: float):
         super().__init__(name, price, voltage)
         self._wattage = wattage

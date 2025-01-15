@@ -1,4 +1,4 @@
-class Light(OutputComponent, ABC):
+class Light():
     def __init__(self, name: str, price: float, lumens: float):
         super().__init__(name, price)
         self._lumens = lumens

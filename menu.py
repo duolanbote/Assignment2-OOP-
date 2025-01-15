@@ -45,7 +45,7 @@ class Menu:
                 self.choice = user_input
                 return self.choice
             else:
-                print("Invalid choice. Please try again.")
+                print("Invalid choice. Please a valid number.")
                 return -1
         except ValueError:
             print("Invalid input. Please enter a valid number.")
